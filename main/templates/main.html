@@ -1,23 +1,5 @@
 <h1>birb</h1>
 
-{% if user.is_authenticated %}
-<p>Welcome back, {{user.username}}!</p>
-<a href="/">Home</a> <a href="/profile/">Profile</a> <a href="/logout/">Logout</a>
-{% endif %}
+<p>welcome to birb! birb is a knockoff version of twitter.</p>
 
-<form method="POST" action="/">
-    {% csrf_token %}
-    <p>chirp what you're thinking:</p>
-    <input name="body" placeholder="what's up :)"/>
-    <input type="submit" value="chirp"/>
-</form>
-
-<hr/>
-
-{% for chirp in chirps %}
-    <p>{{ chirp.body }}</p>
-    {% if chirp.author == user %}
-        <a href="delete?id={{chirp.id}}">delete chirp</a>
-    {% endif %}
-    <hr/>
-{% endfor %}
+<a href="/accounts/">register a new account today or login</a>

@@ -5,8 +5,12 @@ from main.models import Chirp
 
 # all views
 
-# home page
+# main (splash) page
 def main_view(request):
+    return render(request, 'main.html')
+
+# home page
+def home_view(request):
     # if not logged in, redirect to accounts page
     if not request.user.is_authenticated:
         return redirect('/accounts/')
@@ -20,7 +24,7 @@ def main_view(request):
         )
 
     chirps = Chirp.objects.all()
-    return render(request, 'main.html', {'chirps': chirps})
+    return render(request, 'home.html', {'chirps': chirps})
 
 # delete a chirp routing
 def delete_view(request):
@@ -40,7 +44,7 @@ def login_view(request):
 
     if user is not None:
         login(request, user)
-        return redirect('/')
+        return redirect('/home/')
     else:
         return redirect('/accounts?error=True')
 
@@ -53,7 +57,7 @@ def signup_view(request):
     )
 
     login(request, user)
-    return redirect('/')
+    return redirect('/home/')
 
 # logout a user
 def logout_view(request):
@@ -63,4 +67,4 @@ def logout_view(request):
 # profile page
 def profile_view(request):
     chirps = Chirp.objects.filter(author=request.user)
-    return render(request, 'main.html', {'chirps': chirps})
+    return render(request, 'profile.html', {'chirps': chirps})
