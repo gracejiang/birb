@@ -1,31 +1,26 @@
-<!-- logged in user -->
-{% if user.is_authenticated %}
+{% extends 'base.html' %}
 
-    <h1>birb</h1>
-    <p>Welcome back, {{user.username}}!</p>
-    <a href="/">Home</a> <a href="/profile/">Profile</a> <a href="/logout/">Logout</a>
+{% block content %}
+    {% if user.is_authenticated %}
+        <form method="POST" action="/">
+            {% csrf_token %}
+            <p>chirp what you're thinking:</p>
+            <input name="body" placeholder="what's up :)"/>
+            <input type="submit" value="chirp"/>
+        </form>
 
-    <form method="POST" action="/">
-        {% csrf_token %}
-        <p>chirp what you're thinking:</p>
-        <input name="body" placeholder="what's up :)"/>
-        <input type="submit" value="chirp"/>
-    </form>
-
-    <hr/>
-
-    {% for chirp in chirps %}
-        <p>{{ chirp.body }}</p>
-        {% if chirp.author == user %}
-            <a href="delete?id={{chirp.id}}">delete chirp</a>
-        {% endif %}
         <hr/>
-    {% endfor %}
 
-{% else %}
+        {% for chirp in chirps %}
+            <p>{{ chirp.body }}</p>
+            {% if chirp.author == user %}
+                <a href="delete?id={{chirp.id}}">delete chirp</a>
+            {% endif %}
+            <hr/>
+        {% endfor %}
+    {% else %}
+        <p>welcome to birb! birb is a knockoff version of twitter.</p>
+        <a href="/accounts/">register a new account today or login</a>
+        {% endif %}
+{% endblock %}
 
-    <h1>birb</h1>
-    <p>welcome to birb! birb is a knockoff version of twitter.</p>
-    <a href="/accounts/">register a new account today or login</a>
-
-{% endif %}

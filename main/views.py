@@ -60,7 +60,7 @@ def signup_view(request):
 # logout a user
 def logout_view(request):
     logout(request)
-    return redirect('/accounts/')
+    return redirect('/')
 
 # profile page
 def profile_view(request):

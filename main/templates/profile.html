@@ -1,24 +1,23 @@
-{% if user.is_authenticated %}
+{% extends 'base.html' %}
 
-<h1>birb</h1>
+{% block content %}
 
-<p>Welcome back, {{user.username}}!</p>
-<a href="/">Home</a> <a href="/profile/">Profile</a> <a href="/logout/">Logout</a>
+    {% if user.is_authenticated %} 
+        <h3>{{user.username}}'s Profile</h3>
+    {% endif %}
 
-<form method="POST" action="/">
-    {% csrf_token %}
-    <p>chirp what you're thinking:</p>
-    <input name="body" placeholder="what's up :)"/>
-    <input type="submit" value="chirp"/>
-</form>
+    <form method="POST" action="/">
+        {% csrf_token %}
+        <p>chirp what you're thinking:</p>
+        <input name="body" placeholder="what's up :)"/>
+        <input type="submit" value="chirp"/>
+    </form>
 
-<hr/>
-
-{% for chirp in chirps %}
-    <p>{{ chirp.body }}</p>
-    <a href="delete?id={{chirp.id}}">delete chirp</a>
     <hr/>
-{% endfor %}
 
-
-{% endif %}
+    {% for chirp in chirps %}
+        <p>{{ chirp.body }}</p>
+        <a href="delete?id={{chirp.id}}">delete chirp</a>
+        <hr/>
+    {% endfor %}
+{% endblock %}
