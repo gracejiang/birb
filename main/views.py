@@ -5,7 +5,6 @@ from main.models import Chirp
 
 # all views
 
-
 # home page
 def main_view(request):
     # if post request, insert into DB
@@ -30,7 +29,14 @@ def accounts_view(request):
     return render(request, 'accounts.html', {})
 
 def login_view(request):
-    pass
+    username, password = request.POST['username'], request.POST['password']
+    user = authenticate(username = username, password = password)
+
+    if user is not None:
+        login(request, user)
+        return redirect('/')
+    else:
+        return redirect('/accounts?error=True')
 
 def signup_view(request):
     user = User.objects.create_user(
@@ -43,4 +49,5 @@ def signup_view(request):
     return redirect('/')
 
 def logout_view(request):
-    pass
+    logout(request)
+    return redirect('/accounts/')
