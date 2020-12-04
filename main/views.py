@@ -5,26 +5,24 @@ from main.models import Chirp
 
 # all views
 
-# main (splash) page
+# home page – both splash and home page depending on if user is logged 
+# in or not
 def main_view(request):
-    return render(request, 'main.html')
-
-# home page
-def home_view(request):
     # if not logged in, redirect to accounts page
-    if not request.user.is_authenticated:
-        return redirect('/accounts/')
-
+    # if not request.user.is_authenticated:
+    #     return redirect('/accounts/')
 
     # if post request, insert into DB
     if request.method == 'POST' and request.POST['body'] != "":
+        hashtags = get_hashtags(request.POST['body'])
         chirp = Chirp.objects.create(
             body = request.POST['body'],
             author = request.user
         )
+        print(hashtags)
 
     chirps = Chirp.objects.all()
-    return render(request, 'home.html', {'chirps': chirps})
+    return render(request, 'main.html', {'chirps': chirps})
 
 # delete a chirp routing
 def delete_view(request):
@@ -44,7 +42,7 @@ def login_view(request):
 
     if user is not None:
         login(request, user)
-        return redirect('/home/')
+        return redirect('/')
     else:
         return redirect('/accounts?error=True')
 
@@ -57,7 +55,7 @@ def signup_view(request):
     )
 
     login(request, user)
-    return redirect('/home/')
+    return redirect('/')
 
 # logout a user
 def logout_view(request):
@@ -68,3 +66,18 @@ def logout_view(request):
 def profile_view(request):
     chirps = Chirp.objects.filter(author=request.user)
     return render(request, 'profile.html', {'chirps': chirps})
+
+def get_hashtags(text):
+    hashtags = []
+    hashtag_index = text.find("#")
+    while hashtag_index >= 0:
+        text = text[hashtag_index:]
+        whitespace_index = text.find(" ")
+        if whitespace_index > 0:
+            hashtags.append(text[:whitespace_index])
+            text = text[whitespace_index:]
+        else:
+            hashtags.append(text)
+            text = ""
+        hashtag_index = text.find("#")
+    return hashtags
