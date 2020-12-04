@@ -1,6 +1,7 @@
 <h1>birb</h1>
 
 {% if user.is_authenticated %}
+<p>Welcome back, {{user.username}}!</p>
 <a href="/logout/">Logout</a>
 {% endif %}
 

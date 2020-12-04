@@ -7,6 +7,11 @@ from main.models import Chirp
 
 # home page
 def main_view(request):
+    # if not logged in, redirect to accounts page
+    if not request.user.is_authenticated:
+        return redirect('/accounts/')
+
+
     # if post request, insert into DB
     if request.method == 'POST' and request.POST['body'] != "":
         chirp = Chirp.objects.create(
