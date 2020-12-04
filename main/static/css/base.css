@@ -9,3 +9,21 @@ body {
 a {
     text-decoration: none;
 }
+
+.nav-menu ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    color: black;
+}
+
+.nav-item {
+    float: left;
+    display: inline;
+}
+
+.nav-item a {
+    display: block;
+    padding: 8px 14px;
+}

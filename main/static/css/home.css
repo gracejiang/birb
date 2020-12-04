@@ -1,11 +1,9 @@
-.chirp-container {
-    align-items: center;
-    margin: 40px 20px;
+.container {
+    margin: auto;
+    max-width: 600px;
 }
-
 .chirp-card {
     margin: 20px auto;
-    max-width: 600px;
     padding: 20px;
     border-radius: 6px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);

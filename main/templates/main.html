@@ -9,35 +9,39 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h3>Welcome back, {{user.username}}!</h3>
+        <div class="container">
+            <h3>Welcome back, {{user.username}}!</h3>
         
-        <form method="POST" action="/">
-            {% csrf_token %}
-            <p>chirp what you're thinking:</p>
-            <input name="body" placeholder="what's up :)"/>
-            <input type="submit" value="chirp"/>
-        </form>
+            <form method="POST" action="/">
+                {% csrf_token %}
+                <p>chirp what you're thinking:</p>
+                <input name="body" placeholder="what's up :)"/>
+                <input type="submit" value="chirp"/>
+            </form>
 
-        <hr/>
+            <hr/>
 
-        {% for chirp in chirps %}
-            <div class="chirp-card">
-                {% if chirp.author == user %}
-                    <p><span class="chirp-username"><b>
-                        <a href="/profile/">{{ chirp.author.username }}</a></b></span> | 
+            {% for chirp in chirps %}
+                <div class="chirp-card">
+                    {% if chirp.author == user %}
+                        <p><span class="chirp-username"><b>
+                            <a href="/profile/">{{ chirp.author.username }}</a></b></span> | 
+                            <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
+                        <p>{{ chirp.body }}</p>
+                        <span class="chirp-delete"><a href="delete?id={{chirp.id}}">delete chirp</a></span>
+                    {% else %}
+                    <p><span class="chirp-username"><b>{{ chirp.author.username }}</b></span> | 
                         <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
                     <p>{{ chirp.body }}</p>
-                    <span class="chirp-delete"><a href="delete?id={{chirp.id}}">delete chirp</a></span>
-                {% else %}
-                <p><span class="chirp-username"><b>{{ chirp.author.username }}</b></span> | 
-                    <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
-                <p>{{ chirp.body }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+
     {% else %}
         <p>welcome to birb! birb is a knockoff version of twitter.</p>
         <a href="/accounts/">register a new account today or login</a>
-        {% endif %}
+    {% endif %}
 {% endblock %}
 
