@@ -3,5 +3,9 @@
 }
 
 body {
-    margin-left: 40px;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
 }
