@@ -15,10 +15,14 @@ def main_view(request):
     chirps = Chirp.objects.all()
     return render(request, 'main.html', {'chirps': chirps})
 
-
-# delete routing
+# delete a chirp routing
 def delete_view(request):
     # chirp = Chirps.objects.get(id=request.POST[], request=)
     chirp = Chirp.objects.get(id=request.GET['id'])
     chirp.delete()
     return redirect('/')
+
+
+# accounts login/signup page
+def accounts_view(request):
+    return render(request, 'accounts.html', {})
