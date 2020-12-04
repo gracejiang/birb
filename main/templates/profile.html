@@ -6,18 +6,9 @@
         <h3>{{user.username}}'s Profile</h3>
     {% endif %}
 
-    <form method="POST" action="/">
-        {% csrf_token %}
-        <p>chirp what you're thinking:</p>
-        <input name="body" placeholder="what's up :)"/>
-        <input type="submit" value="chirp"/>
-    </form>
-
-    <hr/>
-
     {% for chirp in chirps %}
         <p>{{ chirp.body }}</p>
-        <a href="delete?id={{chirp.id}}">delete chirp</a>
+        <a href="../delete_from_profile?id={{chirp.id}}">delete chirp</a>
         <hr/>
     {% endfor %}
 {% endblock %}

@@ -2,6 +2,8 @@
 
 {% block content %}
     {% if user.is_authenticated %}
+        <h3>Welcome back, {{user.username}}!</h3>
+        
         <form method="POST" action="/">
             {% csrf_token %}
             <p>chirp what you're thinking:</p>

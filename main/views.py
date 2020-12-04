@@ -31,6 +31,13 @@ def delete_view(request):
         chirp.delete()
     return redirect('/')
 
+# delete a chirp routing from profile
+def delete_view_from_profile(request):
+    chirp = Chirp.objects.get(id=request.GET['id'])
+    if chirp.author == request.user:
+        chirp.delete()
+    return redirect('/profile/')
+
 # accounts login/signup page
 def accounts_view(request):
     return render(request, 'accounts.html', {})
