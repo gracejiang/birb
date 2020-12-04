@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Sign Up</h1>
+    <br>
+    <h1>Separate Login & Register Page</h1>
+    <h2>Sign Up</h2>
     <form method="POST" action="/signup/">
         {% csrf_token %}
         <input name="username" placeholder="username" />
@@ -10,11 +12,15 @@
         <input type="submit" value="sign up"/>
     </form>
 
-    <h1>Log In</h1>
+    <h2>Log In</h2>
     <form method="POST" action="/login/">
         {% csrf_token %}
         <input name="username" placeholder="username" />
         <input name="password" placeholder="password" type="password" />
         <input type="submit" value="login"/>
     </form>
+
+    <p>This is a separate login & register page, built for credit.</p>
+    <h2><a href="/">Return Home</a></h2>
+
 {% endblock %}

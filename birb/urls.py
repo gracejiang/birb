@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.urls import path
 from main.views import main_view, delete_view, accounts_view,\
     login_view, signup_view, logout_view, profile_view,\
-    delete_view_from_profile
+    delete_view_from_profile, splash_view
 
 urlpatterns = [
     path('', main_view, name='main_view'),
     path('admin/', admin.site.urls),
+    path('splash/', splash_view, name='splash_view'),
     path('delete/', delete_view, name='delete_view'),
     path('delete_from_profile', delete_view_from_profile, name='delete_view_from_profile'),
     path('accounts/', accounts_view, name='accounts_view'),

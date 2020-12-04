@@ -74,6 +74,9 @@ def profile_view(request):
     chirps = Chirp.objects.filter(author=request.user).order_by('-created_at')
     return render(request, 'profile.html', {'chirps': chirps})
 
+def splash_view(request):
+    return render(request, 'splash.html')
+
 def get_hashtags(text):
     hashtags = []
     hashtag_index = text.find("#")

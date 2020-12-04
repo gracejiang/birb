@@ -39,7 +39,47 @@
     {% else %}
         <br>
         <h1>welcome to birb! birb is a knockoff version of twitter.</h1>
-        <a href="/accounts/">register a new account today or login</a>
+          
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
+            <li><a data-toggle="tab" href="#register">Register</a></li>
+          </ul>
+          
+          <div class="tab-content">
+
+            <div id="login" class="tab-pane in active">
+                <h2>Log In</h2>
+                <form method="POST" action="/login/">
+                    {% csrf_token %}
+                    <input name="username" placeholder="username" />
+                    <input name="password" placeholder="password" type="password" />
+                    <input type="submit" value="login"/>
+                </form>
+            </div>
+
+            <div id="register" class="tab-pane">
+                <h2>Register</h2>
+                <form method="POST" action="/signup/">
+                    {% csrf_token %}
+                    <input name="username" placeholder="username" />
+                    <input name="email" placeholder="email" />
+                    <input name="password" placeholder="password" type="password" />
+                    <input type="submit" value="Register"/>
+                </form>
+            </div>
+
+          </div>
+
+    
+
+        <p style="font-size: 60%">Disclaimer: I built this site in a way that logically makes 
+            sense to me and mirrors the real Twitter. However, in order to
+            fulfill the separate page requirements, you can check out these
+            ugly but functional links. <a href="/accounts">Login/Register Page</a>.
+            <a href="/splash/">Splash Page</a>.
+        </p>
+        
+    
     {% endif %}
 {% endblock %}
 
