@@ -21,7 +21,7 @@ def main_view(request):
         )
         print(hashtags)
 
-    chirps = Chirp.objects.all()
+    chirps = Chirp.objects.all().order_by('-created_at')
     return render(request, 'main.html', {'chirps': chirps})
 
 # delete a chirp routing
@@ -71,7 +71,7 @@ def logout_view(request):
 
 # profile page
 def profile_view(request):
-    chirps = Chirp.objects.filter(author=request.user)
+    chirps = Chirp.objects.filter(author=request.user).order_by('-created_at')
     return render(request, 'profile.html', {'chirps': chirps})
 
 def get_hashtags(text):
