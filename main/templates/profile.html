@@ -1,9 +1,9 @@
+{% if user.is_authenticated %}
+
 <h1>birb</h1>
 
-{% if user.is_authenticated %}
 <p>Welcome back, {{user.username}}!</p>
-<a href="/">Home</a> <a href="/profile/">Profile</a> <a href="/logout/">Logout</a>
-{% endif %}
+<a href="/logout/">Logout</a>
 
 <form method="POST" action="/">
     {% csrf_token %}
@@ -16,8 +16,10 @@
 
 {% for chirp in chirps %}
     <p>{{ chirp.body }}</p>
-    {% if chirp.author == user %}
-        <a href="delete?id={{chirp.id}}">delete chirp</a>
-    {% endif %}
+    <a href="delete?id={{chirp.id}}">delete chirp</a>
     <hr/>
 {% endfor %}
+
+
+
+{% endif %}
