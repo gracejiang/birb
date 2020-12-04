@@ -27,3 +27,8 @@ a {
     display: block;
     padding: 8px 14px;
 }
+
+.container {
+    margin: auto;
+    max-width: 600px;
+}
