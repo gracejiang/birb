@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    {% if user.is_authenticated %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
@@ -14,6 +21,8 @@
         <hr/>
 
         {% for chirp in chirps %}
+            <p><span class="chirp-username"><b>{{ chirp.author.username }}</b></span> | 
+                <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
             <p>{{ chirp.body }}</p>
             {% if chirp.author == user %}
                 <a href="delete?id={{chirp.id}}">delete chirp</a>
