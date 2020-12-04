@@ -4,3 +4,6 @@ from django.db import models
 
 class Chirp(models.Model):
     body = models.TextField(max_length=300)
+
+    def __str__(self):
+        return self.body
