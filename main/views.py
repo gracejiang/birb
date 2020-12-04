@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from main.models import Chirp
 
 # all views
@@ -26,3 +28,19 @@ def delete_view(request):
 # accounts login/signup page
 def accounts_view(request):
     return render(request, 'accounts.html', {})
+
+def login_view(request):
+    pass
+
+def signup_view(request):
+    user = User.objects.create_user(
+        username = request.POST['username'],
+        email = request.POST['email'],
+        password = request.POST['password']
+    )
+
+    login(request, user)
+    return redirect('/')
+
+def logout_view(request):
+    pass
