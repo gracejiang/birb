@@ -10,13 +10,7 @@
 
     <h3>{{ user.username }}'s Profile</h3>
 
-    <!-- {% for chirp in chirps %}
-        <p>{{ chirp.body }}</p>
-        {% if user.username == request.user.username %}
-            <a href="../delete_from_profile?id={{chirp.id}}">delete chirp</a>
-        {% endif %}
-        <hr/>
-    {% endfor %} -->
+    <br>
 
     {% for chirp in chirps %}
         <div class="chirp-card">

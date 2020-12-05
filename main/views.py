@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from main.models import Chirp, Hashtag
+from datetime import datetime
 
 # all views
 
@@ -14,12 +15,17 @@ def main_view(request):
 
     # if post request, insert into DB
     if request.method == 'POST' and request.POST['body'] != "":
-        hashtags = get_hashtags(request.POST['body'])
+        tags = get_hashtags(request.POST['body'])
         chirp = Chirp.objects.create(
             body = request.POST['body'],
-            author = request.user
+            author = request.user,
+            created_at = datetime.now()
         )
-        print(hashtags)
+        for tag in tags:
+            hashtag = get_hashtag(tag)
+            hashtag.save()
+            chirp.hashtags.add(hashtag)
+            chirp.save()
 
     chirps = Chirp.objects.all().order_by('-created_at')
     return render(request, 'main.html', {'chirps': chirps})
@@ -81,13 +87,19 @@ def splash_view(request):
     return render(request, 'splash.html')
 
 def hashtag_view(request, tag):
-    try:
-        hashtag = Hashtag.objects.get(tag=tag)
-    except Hashtag.DoesNotExist:
-        hashtag = Hashtag.objects.create(tag=tag)
+    hashtag = get_hashtag(tag)
     chirps = Chirp.objects.all()
     # filter(author=user).order_by('-created_at')
     return render(request, 'hashtag.html', {'hashtag': hashtag})
+
+# like a chirp
+def like_chirp(request):
+    chirp = Chirp.objects.get(id=request.GET['id'])
+    print(chirp.body, chirp.likes.all)
+    chirp.likes.add(request.user)
+    chirp.save()
+    print(chirp.likes)
+    return redirect('/')
 
 def get_hashtags(text):
     hashtags = []
@@ -96,10 +108,18 @@ def get_hashtags(text):
         text = text[hashtag_index:]
         whitespace_index = text.find(" ")
         if whitespace_index > 0:
-            hashtags.append(text[:whitespace_index])
+            hashtags.append(text[1:whitespace_index])
             text = text[whitespace_index:]
         else:
-            hashtags.append(text)
+            hashtags.append(text[1:])
             text = ""
         hashtag_index = text.find("#")
     return hashtags
+
+def get_hashtag(tag):
+    try:
+        hashtag = Hashtag.objects.get(tag=tag)
+    except Hashtag.DoesNotExist:
+        hashtag = Hashtag.objects.create(tag=tag)
+    print(hashtag)
+    return hashtag

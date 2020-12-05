@@ -27,6 +27,10 @@
                 </b></span> | 
                     <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
                 <p>{{ chirp.body }}</p>
+                {% for tag in chirp.hashtags.all %}
+                    <span><a href="/tag/{{tag}}">#{{ tag }}</a></span>
+                {% endfor %}<br>
+                <span><a href="/like?id={{chirp.id}}">like ({{ chirp.likes }})</a></span>
                 {% if chirp.author == user %}
                     <span class="chirp-delete"><a href="delete?id={{chirp.id}}">delete chirp</a></span>
                 {% endif %}
