@@ -19,9 +19,9 @@
             </b></span> | 
                 <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
             <p>{{ chirp.body }}</p>
-            {% if user.username == request.user.username %}
+            <!-- {% if user.username == request.user.username %}
                 <span class="chirp-delete"><a href="../delete_from_profile?id={{chirp.id}}">delete chirp</a></span>
-            {% endif %}
+            {% endif %} -->
             <hr/>
         </div>
     {% endfor %}
