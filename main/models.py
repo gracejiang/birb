@@ -16,7 +16,7 @@ class Chirp(models.Model):
 
     # foreign keys link one model to another
     hashtags = models.ManyToManyField(Hashtag)
-    likes = models.ManyToManyField(User, related_name='likes')
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     # related_name='users'
 
     def __str__(self):

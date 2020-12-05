@@ -51,7 +51,7 @@ def accounts_view(request):
 # login a user
 def login_view(request):
     username, password = request.POST['username'], request.POST['password']
-    user = authenticate(username = username, password = password)
+    user = authenticate(username = username.lower(), password = password)
 
     if user is not None:
         login(request, user)
@@ -64,8 +64,8 @@ def signup_view(request):
     if request.POST['username'] is not "" and request.POST['email'] is not ""\
         and request.POST['password'] is not "":
         user = User.objects.create_user(
-            username = request.POST['username'],
-            email = request.POST['email'],
+            username = request.POST['username'].lower(),
+            email = request.POST['email'].lower(),
             password = request.POST['password']
         )
 
