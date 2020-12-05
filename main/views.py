@@ -94,7 +94,15 @@ def hashtag_view(request, tag):
 # like a chirp
 def like_chirp(request):
     chirp = Chirp.objects.get(id=request.GET['id'])
-    chirp.likes.add(request.user)
+
+    # not yet liked
+    if len(chirp.likes.filter(username=request.user.username)) == 0:
+        chirp.likes.add(request.user)
+
+    # liked
+    else:
+        chirp.likes.remove(request.user)
+
     chirp.save()
     return redirect('/')
 
