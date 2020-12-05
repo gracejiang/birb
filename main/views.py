@@ -71,17 +71,11 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-# profile page
-def profile_view(request):
-    chirps = Chirp.objects.filter(author=request.user).order_by('-created_at')
-    return render(request, 'profile.html', {'chirps': chirps})
-
 # user page
 def user_view(request, username):
-    curr_user = request.user
     user = User.objects.get(username=username)
     chirps = Chirp.objects.filter(author=user).order_by('-created_at')
-    return render(request, 'user.html', {'user': user, 'curr_user': curr_user, 'chirps': chirps})
+    return render(request, 'user.html', {'user': user, 'chirps': chirps})
 
 def splash_view(request):
     return render(request, 'splash.html')

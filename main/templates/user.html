@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
+{% load static %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/chirp_list.css' %}">
+{% endblock %}
 
 {% block content %}
 
-    <h3>{{user.username}}'s Profile</h3>
+    <h3>{{ user.username }}'s Profile</h3>
+
+    <!-- {% for chirp in chirps %}
+        <p>{{ chirp.body }}</p>
+        {% if user.username == request.user.username %}
+            <a href="../delete_from_profile?id={{chirp.id}}">delete chirp</a>
+        {% endif %}
+        <hr/>
+    {% endfor %} -->
 
     {% for chirp in chirps %}
-        <p>{{ chirp.body }}</p>
-        <hr/>
+        <div class="chirp-card">
+            <p><span class="chirp-username"><b>
+                <a href="{% url 'user_view' username=chirp.author.username %}">{{ chirp.author.username }}</a>
+            </b></span> | 
+                <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
+            <p>{{ chirp.body }}</p>
+            {% if user.username == request.user.username %}
+                <span class="chirp-delete"><a href="../delete_from_profile?id={{chirp.id}}">delete chirp</a></span>
+            {% endif %}
+            <hr/>
+        </div>
     {% endfor %}
+    
 
 {% endblock %}

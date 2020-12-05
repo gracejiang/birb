@@ -28,7 +28,7 @@
         <ul>
             <li class="nav-item"><a href="/">BIRB</a></li>
             <li class="nav-item" style="float:right"><a href="/logout/">Logout</a></li>
-            <li class="nav-item" style="float:right"><a href="/profile/">Profile</a></li>
+            <li class="nav-item" style="float:right"><a href="{% url 'user_view' username=request.user.username %}">Profile</a></li>
         </ul>
     </div>
     {% endif %}

@@ -1,0 +1,27 @@
+.chirp-card {
+    margin: 20px auto;
+    /* padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15); */
+}
+
+/* .chirp-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.15);
+} */
+
+.chirp-username a {
+    color: #329ba1;
+}
+
+.chirp-username {
+    color: #329ba1;
+}
+
+.chirp-delete a {
+    color: #bf3017;
+    font-size: 90%;
+}
+
+.chirp-created-at {
+    color: #878787;
+}
