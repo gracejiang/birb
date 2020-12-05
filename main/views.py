@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from main.models import Chirp
+from main.models import Chirp, Hashtag
 
 # all views
 
@@ -79,6 +79,15 @@ def user_view(request, username):
 
 def splash_view(request):
     return render(request, 'splash.html')
+
+def hashtag_view(request, tag):
+    try:
+        hashtag = Hashtag.objects.get(tag=tag)
+    except Hashtag.DoesNotExist:
+        hashtag = Hashtag.objects.create(tag=tag)
+    chirps = Chirp.objects.all()
+    # filter(author=user).order_by('-created_at')
+    return render(request, 'hashtag.html', {'hashtag': hashtag})
 
 def get_hashtags(text):
     hashtags = []
