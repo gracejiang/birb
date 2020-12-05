@@ -88,9 +88,8 @@ def splash_view(request):
 
 def hashtag_view(request, tag):
     hashtag = get_hashtag(tag)
-    chirps = Chirp.objects.all()
-    # filter(author=user).order_by('-created_at')
-    return render(request, 'hashtag.html', {'hashtag': hashtag})
+    chirps = Chirp.objects.filter(hashtags__tag=hashtag).order_by('-created_at')
+    return render(request, 'hashtag.html', {'hashtag': hashtag, 'chirps': chirps})
 
 # like a chirp
 def like_chirp(request):
@@ -108,10 +107,12 @@ def get_hashtags(text):
         text = text[hashtag_index:]
         whitespace_index = text.find(" ")
         if whitespace_index > 0:
-            hashtags.append(text[1:whitespace_index])
+            tag = text[1:whitespace_index]
+            hashtags.append(tag)
             text = text[whitespace_index:]
         else:
-            hashtags.append(text[1:])
+            tag = text[1:]
+            hashtags.append(tag)
             text = ""
         hashtag_index = text.find("#")
     return hashtags
