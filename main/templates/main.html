@@ -30,7 +30,7 @@
                 {% for tag in chirp.hashtags.all %}
                     <span><a href="/tag/{{tag}}">#{{ tag }}</a></span>
                 {% endfor %}<br>
-                <span><a href="/like?id={{chirp.id}}">like ({{ chirp.likes }})</a></span>
+                <span><a href="/like?id={{chirp.id}}">like ({{ chirp.likes.count }})</a></span>
                 {% if chirp.author == user %}
                     <span class="chirp-delete"><a href="delete?id={{chirp.id}}">delete chirp</a></span>
                 {% endif %}

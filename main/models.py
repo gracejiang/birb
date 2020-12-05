@@ -11,7 +11,7 @@ class Hashtag(models.Model):
 
 class Chirp(models.Model):
     body = models.TextField(max_length=300)
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField()
 
     # foreign keys link one model to another

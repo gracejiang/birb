@@ -15,12 +15,12 @@ def main_view(request):
 
     # if post request, insert into DB
     if request.method == 'POST' and request.POST['body'] != "":
-        tags = get_hashtags(request.POST['body'])
         chirp = Chirp.objects.create(
             body = request.POST['body'],
             author = request.user,
             created_at = datetime.now()
         )
+        tags = get_hashtags(request.POST['body'])
         for tag in tags:
             hashtag = get_hashtag(tag)
             hashtag.save()
@@ -94,10 +94,8 @@ def hashtag_view(request, tag):
 # like a chirp
 def like_chirp(request):
     chirp = Chirp.objects.get(id=request.GET['id'])
-    print(chirp.body, chirp.likes.all)
     chirp.likes.add(request.user)
     chirp.save()
-    print(chirp.likes)
     return redirect('/')
 
 def get_hashtags(text):
