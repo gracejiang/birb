@@ -24,26 +24,33 @@
             <div class="chirp-card">
                 {% if chirp.author == user %}
                     <p><span class="chirp-username"><b>
-                        <a href="/profile/">{{ chirp.author.username }}</a></b></span> | 
+                        <a href="/profile/">{{ chirp.author.username }}</a>
+                    </b></span> | 
                         <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
                     <p>{{ chirp.body }}</p>
                     <span class="chirp-delete"><a href="delete?id={{chirp.id}}">delete chirp</a></span>
                 {% else %}
-                <p><span class="chirp-username"><b>{{ chirp.author.username }}</b></span> | 
-                    <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
-                <p>{{ chirp.body }}</p>
+                    <p><span class="chirp-username"><b>
+                        <a href="{% url 'user_view' username=chirp.author.username %}">{{ chirp.author.username }}</a>
+                    </b></span> | 
+                        <span class="chirp-created-at"><i>{{ chirp.created_at }}</i></span></p>
+                    <p>{{ chirp.body }}</p>
                 {% endif %}
+                <hr/>
             </div>
         {% endfor %}
 
     {% else %}
         <br>
         <h1>welcome to birb! birb is a knockoff version of twitter.</h1>
-          
-          <ul class="nav nav-tabs">
+        <br>
+        <img src="http://clipart-library.com/images/zTXeRByKc.png"/
+        style="width: 180px; text-align: center;">
+        <br><br>
+        <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
             <li><a data-toggle="tab" href="#register">Register</a></li>
-          </ul>
+        </ul>
           
           <div class="tab-content">
 
@@ -72,12 +79,18 @@
 
     
 
-        <p style="font-size: 60%">Disclaimer: I built this site in a way that logically makes 
+        <div style=
+        "position: absolute; 
+        bottom: 5px; 
+        margin-bottom: 10px; 
+        max-width: 600px;
+        font-size: 80%;">
+            Disclaimer: I built this site in a way that logically makes 
             sense to me and mirrors the real Twitter. However, in order to
-            fulfill the separate page requirements, you can check out these
+            fulfill the page requirements, you can check out these
             ugly but functional links. <a href="/accounts">Login/Register Page</a>.
             <a href="/splash/">Splash Page</a>.
-        </p>
+        </div>
         
     
     {% endif %}

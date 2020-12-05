@@ -51,17 +51,19 @@ def login_view(request):
         login(request, user)
         return redirect('/')
     else:
-        return redirect('/accounts?error=True')
+        return redirect('/?error=True')
 
 # register a user
 def signup_view(request):
-    user = User.objects.create_user(
-        username = request.POST['username'],
-        email = request.POST['email'],
-        password = request.POST['password']
-    )
+    if request.POST['username'] is not "" and request.POST['email'] is not ""\
+        and request.POST['password'] is not "":
+        user = User.objects.create_user(
+            username = request.POST['username'],
+            email = request.POST['email'],
+            password = request.POST['password']
+        )
 
-    login(request, user)
+        login(request, user)
     return redirect('/')
 
 # logout a user
@@ -73,6 +75,13 @@ def logout_view(request):
 def profile_view(request):
     chirps = Chirp.objects.filter(author=request.user).order_by('-created_at')
     return render(request, 'profile.html', {'chirps': chirps})
+
+# user page
+def user_view(request, username):
+    curr_user = request.user
+    user = User.objects.get(username=username)
+    chirps = Chirp.objects.filter(author=user).order_by('-created_at')
+    return render(request, 'user.html', {'user': user, 'curr_user': curr_user, 'chirps': chirps})
 
 def splash_view(request):
     return render(request, 'splash.html')

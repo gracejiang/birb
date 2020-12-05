@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3>{{user.username}}'s Profile</h3>
+
+    {% for chirp in chirps %}
+        <p>{{ chirp.body }}</p>
+        <hr/>
+    {% endfor %}
+
+{% endblock %}

@@ -12,10 +12,8 @@ a {
 
 .nav-menu ul {
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    padding: 20px;
     overflow: hidden;
-    color: black;
 }
 
 .nav-item {
@@ -26,6 +24,7 @@ a {
 .nav-item a {
     display: block;
     padding: 8px 14px;
+    color: #329ba1;
 }
 
 .container {
